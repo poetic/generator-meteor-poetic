@@ -30,8 +30,11 @@ generateFile('js', templateName);
 console.log('SUCCESS');
 
 function generateFile(fileExt, templateName){
-  var blueprint = __dirname + '/blueprints/route/blueprint';
+  var blueprint = __dirname + '/../blueprints/route/blueprint';
   var content = fs.readFileSync(blueprint + '.' + fileExt, 'utf8');
   content = content.replace(/\_\_NAME\_\_/g, templateName);
-  fs.writeFileSync(destinationFile + '.' + fileExt, content);
+
+  var destinationFileName = destinationFile + '.' + fileExt;
+  console.log('destinationFileName', destinationFileName);
+  fs.writeFileSync(destinationFileName , content);
 };
