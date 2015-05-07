@@ -16,7 +16,9 @@ var path     = './client/routes/' + name;
 var segments = name.split('/').filter(Boolean);
 
 var destinationFile = path + '/' + _.last(segments);
-var templateName    = segments.map(_.capitalize).join('');
+var templateName    = segments.map(function(segment){
+  return segment.split(/[-_]/).map(_.capitalize).join('');
+}).join('');
 
 // create path
 mkdirp.sync(path);
@@ -35,6 +37,5 @@ function generateFile(fileExt, templateName){
   content = content.replace(/\_\_NAME\_\_/g, templateName);
 
   var destinationFileName = destinationFile + '.' + fileExt;
-  console.log('destinationFileName', destinationFileName);
   fs.writeFileSync(destinationFileName , content);
 };
