@@ -1,0 +1,24 @@
+{
+  "name": "meteor-generator",
+  "version": "1.0.0",
+  "description": "scalffold files",
+  "main": "index.js",
+  "dependencies": {
+    "mkdirp": "^0.5.0",
+    "lodash": "^3.8.0"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "meteor",
+    "generator"
+  ],
+  "bin": {
+    "meteor-generator": "./bin/meteor-generator"
+  },
+  "author": "Chun Yang",
+  "license": "ISC"
+}
