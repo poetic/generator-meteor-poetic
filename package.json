@@ -20,5 +20,6 @@
     "meteor-generator": "./bin/meteor-generator"
   },
   "author": "Chun Yang",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "https://github.com/poetic/meteor-poetic-scaffold"
 }
