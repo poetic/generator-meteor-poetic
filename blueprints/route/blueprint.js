@@ -1,3 +1,7 @@
+Template.__NAME__.onRendered(function(){
+
+});
+
 Template.__NAME__.helpers({
 
 });

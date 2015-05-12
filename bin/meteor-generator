@@ -12,7 +12,7 @@ var mkdirp = require('mkdirp');
 var fs     = require('fs');
 var _      = require('lodash');
 
-var path     = './client/routes/' + name;
+var path     = './client/' + type + 's' + '/' + name;
 var segments = name.split('/').filter(Boolean);
 
 var destinationFile = path + '/' + _.last(segments);
@@ -24,15 +24,18 @@ var templateName    = segments.map(function(segment){
 mkdirp.sync(path);
 
 // create html file
-generateFile('html', templateName);
+generateFile(type, 'html', templateName);
 
 // create js file
-generateFile('js', templateName);
+generateFile(type, 'js', templateName);
 
 console.log('SUCCESS');
 
-function generateFile(fileExt, templateName){
-  var blueprint = __dirname + '/../blueprints/route/blueprint';
+function generateFile(type, fileExt, templateName){
+  if(type === 'component') {
+     type = 'route';
+  }
+  var blueprint = __dirname + '/../blueprints/' + type + '/blueprint';
   var content = fs.readFileSync(blueprint + '.' + fileExt, 'utf8');
   content = content.replace(/\_\_NAME\_\_/g, templateName);
 
