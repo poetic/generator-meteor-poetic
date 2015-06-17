@@ -5,11 +5,11 @@ npm install meteor-poetic-scaffold
 
 # Usage
 ```
-meteor-generator route admin/show
+meteor-poetic-scaffold route admin/show
 # ./client/routes/admin/show/show.html
 # ./client/routes/admin/show/show.js
 
-meteor-generator component admin/show
+meteor-poetic-scaffold component admin/show
 # ./client/components/admin/show/show.html
 # ./client/components/admin/show/show.js
 ```

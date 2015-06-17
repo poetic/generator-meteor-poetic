@@ -1,24 +1,24 @@
 {
-  "name": "meteor-poetic-scaffold",
-  "version": "1.0.0",
-  "description": "scalffold files",
+  "name": "generator-meteor-poetic",
+  "version": "0.0.1",
+  "description": "an opinionaed yo man generator for meteor",
   "main": "index.js",
   "dependencies": {
-    "mkdirp": "^0.5.0",
-    "lodash": "^3.8.0"
+    "yeoman-generator": "^0.20.1"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "meteor",
-    "generator"
+    "yeoman-generator",
+    "generator",
+    "meteor"
   ],
-  "bin": {
-    "meteor-generator": "./bin/meteor-generator"
-  },
+  "files": [
+    "templates",
+    "generators"
+  ],
   "author": "Chun Yang",
   "license": "ISC",
   "repository": "https://github.com/poetic/meteor-poetic-scaffold"
