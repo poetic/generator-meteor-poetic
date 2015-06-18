@@ -4,7 +4,8 @@
   "description": "an opinionaed yo man generator for meteor",
   "main": "index.js",
   "dependencies": {
-    "yeoman-generator": "^0.20.1"
+    "yeoman-generator": "^0.20.1",
+    "lodash": "^3.8.0"
   },
   "devDependencies": {},
   "scripts": {

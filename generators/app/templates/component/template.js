@@ -1,11 +1,11 @@
-Template.<%= name %>.onRendered(function(){
+Template.<%= tplName %>.onRendered(function(){
 
 });
 
-Template.<%= name %>.helpers({
+Template.<%= tplName %>.helpers({
 
 });
 
-Template.<%= name %>.events({
+Template.<%= tplName %>.events({
 
 });
