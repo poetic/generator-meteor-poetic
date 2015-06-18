@@ -16,15 +16,19 @@ module.exports = generators.Base.extend({
   },
 
   prompting: {
+    // prefix is client by default
+    addPrefixToOptions: function () {
+      this.options.prefix = this.options.server ? 'server' : 'client'
+    },
+
     init: function (type) {
       if(!(typeof type === 'undefined')) {
         return
       }
 
-      var generator = this;
-      var done = generator.async()
+      var done = this.async()
 
-      generator.prompt({
+      this.prompt({
         type: 'confirm',
         name: 'confirm',
         message: 'Create a new meteor project?'
@@ -44,47 +48,64 @@ module.exports = generators.Base.extend({
         return
       }
     },
+    component: function (type, name) {
+      if(!(type === 'component')) {
+        return
+      }
+      if(this.options.server) {
+        this.log.error('You can not create a component on the server side.')
+        process.exit(1)
+      }
+      generateFilesForRoute(type, name, this)
+    },
     route: function (type, name) {
       if(!(type === 'route')) {
         return
       }
-
-      if(!name) {
-        this.log('You need a route name')
-        process.exit(1)
-      }
-
-      var side      = this.options.server ? 'server' : 'client'
-      var routeInfo = parseRouteName(name, this)
-      var filePath  = [side, 'route', routeInfo.filePath].join('/')
-      var tplName   = routeInfo.tplName
-
-      this.fs.copyTpl(
-        this.templatePath('component/template.html'),
-        this.destinationPath(filePath + '.html'),
-        {tplName: tplName}
-      )
-      this.fs.copyTpl(
-        this.templatePath('component/template.js'),
-        this.destinationPath(filePath + '.js'),
-        {tplName: tplName}
-      )
+      generateFilesForRoute(type, name, this)
     }
   }
 
 });
 
-// @return
-//  {
-//    filePath: {String},
-//    tplName:  {String}
-//  }
+/*
+ * generate file for route or component
+ */
+function generateFilesForRoute (type, name, generator) {
+  if(!name) {
+    generator.log.error('You need a ' + type + ' name.')
+    process.exit(1)
+  }
+
+  var routeInfo = parseRouteName(name, generator)
+  var filePath  = [generator.options.prefix, type, routeInfo.filePath].join('/')
+  var tplName   = routeInfo.tplName
+
+  generator.fs.copyTpl(
+    generator.templatePath('component/template.html'),
+    generator.destinationPath(filePath + '.html'),
+    {tplName: tplName}
+  )
+  generator.fs.copyTpl(
+    generator.templatePath('component/template.js'),
+    generator.destinationPath(filePath + '.js'),
+    {tplName: tplName}
+  )
+}
+
+/*
+ * @return
+ *  {
+ *    filePath: {String},
+ *    tplName:  {String}
+ *  }
+ */
 function parseRouteName (name, generator) {
   var segments = name.split('/').filter(Boolean)
 
   // make sure name is not camelcase
   if(name !== name.toLowerCase()) {
-    generator.log('Your name (' + name + ') ' + 'should not be camelcase')
+    generator.log.error('Your name (' + name + ') ' + 'should not be camelcase.')
   }
 
   var filePath = name
