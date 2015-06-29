@@ -15,6 +15,9 @@ yo meteor-poetic route admin/show
 yo meteor-poetic component admin/show
 # ./client/components/admin/show/show.html
 # ./client/components/admin/show/show.js
+
+yo meteor-poetic schema campaigns
+# ./schema/campaigns.js
 ```
 
 # File Structure:
