@@ -47,11 +47,14 @@ module.exports = generators.Base.extend({
       if(!(typeof type === 'undefined')) {
         return
       }
+
+      this.directory('app', './')
     },
     component: function (type, name) {
       if(!(type === 'component')) {
         return
       }
+
       if(this.options.server) {
         this.log.error('You can not create a component on the server side.')
         process.exit(1)
@@ -62,6 +65,7 @@ module.exports = generators.Base.extend({
       if(!(type === 'route')) {
         return
       }
+
       generateFilesForRoute(type, name, this)
     }
   }
