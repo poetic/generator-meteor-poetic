@@ -1,3 +1,5 @@
 meteor-platform
 iron:router
 fourseven:scss
+aldeed:simple-schema
+aldeed:collection2
