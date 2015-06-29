@@ -1,4 +1,5 @@
 meteor-platform
+erasaur:meteor-lodash
 iron:router
 fourseven:scss
 aldeed:simple-schema

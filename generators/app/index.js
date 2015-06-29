@@ -67,6 +67,13 @@ module.exports = generators.Base.extend({
       }
 
       generateFilesForRoute(type, name, this)
+    },
+    schema: function (type, name) {
+      if(!(type === 'schema')) {
+        return
+      }
+
+      generateFilesForSchema(name, this)
     }
   }
 
@@ -105,20 +112,42 @@ function generateFilesForRoute (type, name, generator) {
  *  }
  */
 function parseRouteName (name, generator) {
-  var segments = name.split('/').filter(Boolean)
+  var filePath = name
+  var tplName  = capitalize(name)
 
   // make sure name is not camelcase
   if(name !== name.toLowerCase()) {
     generator.log.error('Your name (' + name + ') ' + 'should not be camelcase.')
   }
 
-  var filePath = name
-  var tplName  = segments.map(function(segment){
-    return segment.split(/[-_]/).map(_.capitalize).join('');
-  }).join('');
-
   return {
     filePath: name,
     tplName:  tplName
   }
+}
+
+function generateFilesForSchema (name, generator) {
+  var collectionName      = capitalize(name)
+  var collectionNameCamel = deCapitalizeFirst(collectionName)
+
+  generator.fs.copyTpl(
+    generator.templatePath('schema/schema.js'),
+    generator.destinationPath('schemas/' + name + '.js'),
+    {
+      collectionName:      collectionName,
+      collectionNameCamel: collectionNameCamel
+    }
+  )
+}
+
+function capitalize (str) {
+  var segments        = str.split('/').filter(Boolean)
+  var capitalizedName = segments.map(function(segment){
+    return segment.split(/[-_]/).map(_.capitalize).join('');
+  }).join('');
+  return capitalizedName
+}
+
+function deCapitalizeFirst (str) {
+  return str[0].toLowerCase() + str.substr(1)
 }
