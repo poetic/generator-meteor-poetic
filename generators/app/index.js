@@ -83,6 +83,13 @@ module.exports = generators.Base.extend({
 
       generateFilesForFactory(name, this)
     },
+    publication: function (type, name) {
+      if(!(type === 'publication')) {
+        return
+      }
+
+      generateFilesForPublication(name, this)
+    },
   }
 
 });
@@ -155,6 +162,16 @@ function generateFilesForFactory (name, generator) {
     {
       collectionName:       name,
       collectionNameSingle: singularize(name)
+    }
+  )
+}
+
+function generateFilesForPublication (name, generator) {
+  generator.fs.copyTpl(
+    generator.templatePath('publication/publication.js'),
+    generator.destinationPath('server/publications/' + name + '.js'),
+    {
+      collectionName:       name
     }
   )
 }
