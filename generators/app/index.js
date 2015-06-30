@@ -143,7 +143,7 @@ function parseRouteName (name, generator) {
 
 function generateFilesForSchema (name, generator) {
   var collectionName      = capitalize(name)
-  var collectionNameCamel = deCapitalizeFirst(collectionName)
+  var collectionNameCamel = camelize(collectionName)
 
   generator.fs.copyTpl(
     generator.templatePath('schema/schema.js'),
@@ -156,22 +156,26 @@ function generateFilesForSchema (name, generator) {
 }
 
 function generateFilesForFactory (name, generator) {
+  var collectionName      = camelize(name)
+
   generator.fs.copyTpl(
     generator.templatePath('factory/factory.js'),
     generator.destinationPath('server/factories/' + name + '.js'),
     {
-      collectionName:       name,
-      collectionNameSingle: singularize(name)
+      collectionName:       collectionName,
+      collectionNameSingle: singularize(collectionName)
     }
   )
 }
 
 function generateFilesForPublication (name, generator) {
+  var collectionName      = camelize(name)
+
   generator.fs.copyTpl(
     generator.templatePath('publication/publication.js'),
     generator.destinationPath('server/publications/' + name + '.js'),
     {
-      collectionName:       name
+      collectionName:       collectionName,
     }
   )
 }
@@ -182,6 +186,10 @@ function capitalize (str) {
     return segment.split(/[-_]/).map(_.capitalize).join('');
   }).join('');
   return capitalizedName
+}
+
+function camelize (str) {
+  return deCapitalizeFirst(capitalize(str))
 }
 
 function deCapitalizeFirst (str) {
