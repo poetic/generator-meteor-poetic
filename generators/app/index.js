@@ -74,7 +74,15 @@ module.exports = generators.Base.extend({
       }
 
       generateFilesForSchema(name, this)
-    }
+    },
+    // TODO: create a lib for this, instead of creating the same template
+    factory: function (type, name) {
+      if(!(type === 'factory')) {
+        return
+      }
+
+      generateFilesForFactory(name, this)
+    },
   }
 
 });
@@ -140,6 +148,17 @@ function generateFilesForSchema (name, generator) {
   )
 }
 
+function generateFilesForFactory (name, generator) {
+  generator.fs.copyTpl(
+    generator.templatePath('factory/factory.js'),
+    generator.destinationPath('server/factories/' + name + '.js'),
+    {
+      collectionName:       name,
+      collectionNameSingle: singularize(name)
+    }
+  )
+}
+
 function capitalize (str) {
   var segments        = str.split('/').filter(Boolean)
   var capitalizedName = segments.map(function(segment){
@@ -150,4 +169,11 @@ function capitalize (str) {
 
 function deCapitalizeFirst (str) {
   return str[0].toLowerCase() + str.substr(1)
+}
+
+// TODO: use a inflection library
+function singularize (name) {
+  return _.last(name) === 's' ?
+    name.substr(0, name.length - 1) :
+    name
 }
