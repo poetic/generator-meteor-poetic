@@ -4,6 +4,6 @@ Factories.<%= collectionName %>.create = function(override) {
   }
 
   <%= collectionNameSingle %> = _.merge(<%= collectionNameSingle %>, override)
-  var <%= collectionNameSingle %>Id = <%= collectionName %>.insert(timeLog)
+  var <%= collectionNameSingle %>Id = <%= collectionName %>.insert(<%= collectionNameSingle %>)
   return <%= collectionNameSingle %>Id
 }
