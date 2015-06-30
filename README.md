@@ -5,6 +5,9 @@ npm install generator-meteor-poetic
 
 # Usage
 ```
+# You can create an alias
+# alias mg='yo meteor-poetic'
+
 yo meteor-poetic
 # generate a new meteor project
 
@@ -18,6 +21,12 @@ yo meteor-poetic component admin/show
 
 yo meteor-poetic schema campaigns
 # ./schema/campaigns.js
+
+yo meteor-poetic publication campaigns
+# ./server/publications/campaigns.js
+
+yo meteor-poetic factory campaigns
+# ./server/factorys/campaigns.js
 ```
 
 # File Structure:
