@@ -156,7 +156,8 @@ function generateFilesForSchema (name, generator) {
 }
 
 function generateFilesForFactory (name, generator) {
-  var collectionName      = camelize(name)
+  var collectionName       = capitalize(name)
+  var collectionNameSingle = singularize(camelize(collectionName))
 
   generator.fs.copyTpl(
     generator.templatePath('factory/factory.js'),
@@ -169,13 +170,15 @@ function generateFilesForFactory (name, generator) {
 }
 
 function generateFilesForPublication (name, generator) {
-  var collectionName      = camelize(name)
+  var collectionName      = capitalize(name)
+  var collectionNameCamel = camelize(collectionName)
 
   generator.fs.copyTpl(
     generator.templatePath('publication/publication.js'),
     generator.destinationPath('server/publications/' + name + '.js'),
     {
-      collectionName:       collectionName,
+      collectionName:      collectionName,
+      collectionNameCamel: collectionNameCamel
     }
   )
 }

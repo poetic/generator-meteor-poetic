@@ -1,3 +1,3 @@
-Meteor.publish('<%= collectionName %>', function() {
+Meteor.publish('<%= collectionNameCamel %>', function() {
   return <%= collectionName %>.find()
 })
