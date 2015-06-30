@@ -1,5 +1,3 @@
-var _ = lodash
-
 Factories.<%= collectionName %> = {}
 Factories.<%= collectionName %>.create = function(override) {
   var <%= collectionNameSingle %> = {
