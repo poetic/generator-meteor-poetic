@@ -104,7 +104,7 @@ function generateFilesForRoute (type, name, generator) {
   }
 
   var routeInfo = parseRouteName(name, generator)
-  var filePath  = [generator.options.prefix, type, routeInfo.filePath].join('/')
+  var filePath  = [generator.options.prefix, pluralize(type) , routeInfo.filePath].join('/')
   var tplName   = routeInfo.tplName
 
   generator.fs.copyTpl(
@@ -128,6 +128,7 @@ function generateFilesForRoute (type, name, generator) {
  */
 function parseRouteName (name, generator) {
   var filePath = name
+  var fileName = extractFileName(name)
   var tplName  = capitalize(name)
 
   // make sure name is not camelcase
@@ -136,7 +137,7 @@ function parseRouteName (name, generator) {
   }
 
   return {
-    filePath: name,
+    filePath: name + '/' + fileName,
     tplName:  tplName
   }
 }
@@ -204,4 +205,12 @@ function singularize (name) {
   return _.last(name) === 's' ?
     name.substr(0, name.length - 1) :
     name
+}
+
+function pluralize (name) {
+  return name + 's'
+}
+
+function extractFileName (path) {
+  return _.last(path.split('/'))
 }
