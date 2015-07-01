@@ -1,5 +1,6 @@
 var generators = require('yeoman-generator')
 var _          = require('lodash')
+var inflection = require('inflection')
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -111,7 +112,7 @@ function generateFilesForRoute (type, name, generator) {
   }
 
   var routeInfo = parseRouteName(name, generator)
-  var filePath  = [generator.options.prefix, pluralize(type) , routeInfo.filePath].join('/')
+  var filePath  = [generator.options.prefix, inflection.pluralize(type) , routeInfo.filePath].join('/')
   var tplName   = routeInfo.tplName
 
   generator.fs.copyTpl(
@@ -157,10 +158,10 @@ function generateCollectionFileForType (type, name, side, generator) {
 
   var collectionName            = capitalize(name)
   var collectionNameCamel       = camelize(collectionName)
-  var collectionNameCamelSingle = singularize(collectionNameCamel)
+  var collectionNameCamelSingle = inflection.singularize(collectionNameCamel)
 
   var templatePath    = concatAsPath(type, type) + '.js'
-  var destinationPath = concatAsPath(prefix, pluralize(type), name) + '.js'
+  var destinationPath = concatAsPath(prefix, inflection.pluralize(type), name) + '.js'
 
   generator.fs.copyTpl(
     generator.templatePath(templatePath),
@@ -187,17 +188,6 @@ function camelize (str) {
 
 function deCapitalizeFirst (str) {
   return str[0].toLowerCase() + str.substr(1)
-}
-
-// TODO: use a inflection library
-function singularize (name) {
-  return _.last(name) === 's' ?
-    name.substr(0, name.length - 1) :
-    name
-}
-
-function pluralize (name) {
-  return name + 's'
 }
 
 function extractFileName (path) {
