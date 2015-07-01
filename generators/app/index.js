@@ -73,29 +73,29 @@ module.exports = generators.Base.extend({
         return
       }
 
-      generateFilesForSchema(name, this)
+      generateCollectionFileForType (type, name, 'everywhere', this)
     },
-    // TODO: create a lib for this, instead of creating the same template
+    // TODO: create a meteor lib for this, instead of creating the same template
     factory: function (type, name) {
       if(!(type === 'factory')) {
         return
       }
 
-      generateFilesForFactory(name, this)
+      generateCollectionFileForType (type, name, 'server', this)
     },
     publication: function (type, name) {
       if(!(type === 'publication')) {
         return
       }
 
-      generateFilesForPublication(name, this)
+      generateCollectionFileForType (type, name, 'server', this)
     },
     authorization: function (type, name) {
       if(!(type === 'authorization')) {
         return
       }
 
-      generateFilesForAuthorization(name, this)
+      generateCollectionFileForType (type, name, 'server', this)
     },
   }
 
@@ -149,58 +149,26 @@ function parseRouteName (name, generator) {
   }
 }
 
-function generateFilesForSchema (name, generator) {
-  var collectionName      = capitalize(name)
-  var collectionNameCamel = camelize(collectionName)
+/*
+ * @param side {'client'|'server'|'everywhere'}
+ */
+function generateCollectionFileForType (type, name, side, generator) {
+  var prefix = side === 'everywhere' ? '' : side
+
+  var collectionName            = capitalize(name)
+  var collectionNameCamel       = camelize(collectionName)
+  var collectionNameCamelSingle = singularize(collectionNameCamel)
+
+  var templatePath    = concatAsPath(type, type) + '.js'
+  var destinationPath = concatAsPath(prefix, pluralize(type), name) + '.js'
 
   generator.fs.copyTpl(
-    generator.templatePath('schema/schema.js'),
-    generator.destinationPath('schemas/' + name + '.js'),
+    generator.templatePath(templatePath),
+    generator.destinationPath(destinationPath),
     {
-      collectionName:      collectionName,
-      collectionNameCamel: collectionNameCamel
-    }
-  )
-}
-
-function generateFilesForFactory (name, generator) {
-  var collectionName       = capitalize(name)
-  var collectionNameSingle = singularize(camelize(collectionName))
-
-  generator.fs.copyTpl(
-    generator.templatePath('factory/factory.js'),
-    generator.destinationPath('server/factories/' + name + '.js'),
-    {
-      collectionName:       collectionName,
-      collectionNameSingle: singularize(collectionName)
-    }
-  )
-}
-
-function generateFilesForPublication (name, generator) {
-  var collectionName      = capitalize(name)
-  var collectionNameCamel = camelize(collectionName)
-
-  generator.fs.copyTpl(
-    generator.templatePath('publication/publication.js'),
-    generator.destinationPath('server/publications/' + name + '.js'),
-    {
-      collectionName:      collectionName,
-      collectionNameCamel: collectionNameCamel
-    }
-  )
-}
-
-function generateFilesForAuthorization (name, generator) {
-  var collectionName      = capitalize(name)
-  var collectionNameCamel = camelize(collectionName)
-
-  generator.fs.copyTpl(
-    generator.templatePath('authorization/authorization.js'),
-    generator.destinationPath('server/authorizations/' + name + '.js'),
-    {
-      collectionName:      collectionName,
-      collectionNameCamel: collectionNameCamel
+      collectionName:            collectionName,
+      collectionNameCamel:       collectionNameCamel,
+      collectionNameCamelSingle: collectionNameCamelSingle
     }
   )
 }
@@ -234,4 +202,9 @@ function pluralize (name) {
 
 function extractFileName (path) {
   return _.last(path.split('/'))
+}
+
+function concatAsPath () {
+  var segments = Array.prototype.slice.call(arguments).filter(Boolean)
+  return _.flatten(segments).join('/')
 }
