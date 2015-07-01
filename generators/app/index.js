@@ -90,6 +90,13 @@ module.exports = generators.Base.extend({
 
       generateFilesForPublication(name, this)
     },
+    authorization: function (type, name) {
+      if(!(type === 'authorization')) {
+        return
+      }
+
+      generateFilesForAuthorization(name, this)
+    },
   }
 
 });
@@ -177,6 +184,20 @@ function generateFilesForPublication (name, generator) {
   generator.fs.copyTpl(
     generator.templatePath('publication/publication.js'),
     generator.destinationPath('server/publications/' + name + '.js'),
+    {
+      collectionName:      collectionName,
+      collectionNameCamel: collectionNameCamel
+    }
+  )
+}
+
+function generateFilesForAuthorization (name, generator) {
+  var collectionName      = capitalize(name)
+  var collectionNameCamel = camelize(collectionName)
+
+  generator.fs.copyTpl(
+    generator.templatePath('authorization/authorization.js'),
+    generator.destinationPath('server/authorizations/' + name + '.js'),
     {
       collectionName:      collectionName,
       collectionNameCamel: collectionNameCamel
