@@ -141,7 +141,8 @@ function parseRouteName (name, generator) {
 
   // make sure name is not camelcase
   if(name !== name.toLowerCase()) {
-    generator.log.error('Your name (' + name + ') ' + 'should not be camelcase.')
+    generator.log.error('Your name (' + name + ') ' + 'should not be camelcase, use "-" instead')
+    process.exit(1)
   }
 
   return {
