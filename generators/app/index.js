@@ -98,6 +98,13 @@ module.exports = generators.Base.extend({
 
       generateCollectionFileForType (type, name, 'server', this)
     },
+    autorun: function (type, name) {
+      if(!(type === 'autorun')) {
+        return
+      }
+
+      generateCollectionFileForType (type, name, 'client', this)
+    },
   }
 
 });
