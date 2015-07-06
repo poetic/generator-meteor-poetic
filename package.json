@@ -1,6 +1,6 @@
 {
   "name": "generator-meteor-poetic",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "an opinionaed yo man generator for meteor",
   "main": "index.js",
   "dependencies": {
@@ -23,5 +23,5 @@
   ],
   "author": "Chun Yang",
   "license": "ISC",
-  "repository": "https://github.com/poetic/meteor-poetic-scaffold"
+  "repository": "https://github.com/poetic/generator-meteor-poetic"
 }
