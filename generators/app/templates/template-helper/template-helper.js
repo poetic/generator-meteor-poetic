@@ -1,0 +1,3 @@
+Template.registerHelper('<%= collectionNameCamel %>', function () {
+
+})

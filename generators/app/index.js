@@ -69,12 +69,19 @@ module.exports = generators.Base.extend({
 
       generateFilesForRoute(type, name, this)
     },
+    templateHelper: function (type, name) {
+      if(!(type === 'template-helper')) {
+        return
+      }
+
+      generateCollectionFileForType(type, name, 'client', this)
+    },
     schema: function (type, name) {
       if(!(type === 'schema')) {
         return
       }
 
-      generateCollectionFileForType (type, name, 'everywhere', this)
+      generateCollectionFileForType(type, name, 'everywhere', this)
     },
     // TODO: create a meteor lib for this, instead of creating the same template
     factory: function (type, name) {
@@ -82,28 +89,28 @@ module.exports = generators.Base.extend({
         return
       }
 
-      generateCollectionFileForType (type, name, 'server', this)
+      generateCollectionFileForType(type, name, 'server', this)
     },
     publication: function (type, name) {
       if(!(type === 'publication')) {
         return
       }
 
-      generateCollectionFileForType (type, name, 'server', this)
+      generateCollectionFileForType(type, name, 'server', this)
     },
     authorization: function (type, name) {
       if(!(type === 'authorization')) {
         return
       }
 
-      generateCollectionFileForType (type, name, 'server', this)
+      generateCollectionFileForType(type, name, 'server', this)
     },
     autorun: function (type, name) {
       if(!(type === 'autorun')) {
         return
       }
 
-      generateCollectionFileForType (type, name, 'client', this)
+      generateCollectionFileForType(type, name, 'client', this)
     },
   }
 

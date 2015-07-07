@@ -19,6 +19,9 @@ yo meteor-poetic component admin/show
 # ./client/components/admin/show/show.html
 # ./client/components/admin/show/show.js
 
+yo meteor-poetic template-helper image-src
+# ./client/template-helpers/image-src.js
+
 yo meteor-poetic schema campaigns
 # ./schema/campaigns.js
 
