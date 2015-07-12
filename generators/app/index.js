@@ -68,6 +68,8 @@ module.exports = generators.Base.extend({
       }
 
       generateFilesForRoute(type, name, this)
+      // TODO: do not create new one if one route already exist
+      addRouteToTheEndOfRouter(type, name, this)
     },
     templateHelper: function (type, name) {
       if(!(type === 'template-helper')) {
@@ -139,6 +141,21 @@ function generateFilesForRoute (type, name, generator) {
     generator.destinationPath(filePath + '.js'),
     {tplName: tplName}
   )
+}
+
+function addRouteToTheEndOfRouter (type, name, generator) {
+  var path = "client/router.js"
+  var file = generator.readFileAsString(path)
+  file += [
+    "",
+    "Router.route('/" + name + "', function () {",
+    "  this.render('" + capitalize(name)+ "')",
+    "})"
+  ].join("\n")
+
+  /* make modifications to the file string here */
+
+  generator.writeFileFromString(file, path);
 }
 
 /*
