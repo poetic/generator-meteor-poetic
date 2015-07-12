@@ -1,5 +1,5 @@
-var <%= collectionName %>Schema = new SimpleSchema({
+var <%= collectionNameSingle %>Schema = new SimpleSchema({
 })
 
 <%= collectionName %> = new Mongo.Collection('<%= collectionNameCamel %>')
-<%= collectionName %>.attachSchema(<%= collectionName %>Schema)
+<%= collectionName %>.attachSchema(<%= collectionNameSingle %>Schema)

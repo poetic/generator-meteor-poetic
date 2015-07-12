@@ -172,6 +172,7 @@ function generateCollectionFileForType (type, name, side, generator) {
   var prefix = side === 'everywhere' ? '' : side
 
   var collectionName            = capitalize(name)
+  var collectionNameSingle      = inflection.singularize(collectionName)
   var collectionNameCamel       = camelize(collectionName)
   var collectionNameCamelSingle = inflection.singularize(collectionNameCamel)
 
@@ -183,6 +184,7 @@ function generateCollectionFileForType (type, name, side, generator) {
     generator.destinationPath(destinationPath),
     {
       collectionName:            collectionName,
+      collectionNameSingle:      collectionNameSingle,
       collectionNameCamel:       collectionNameCamel,
       collectionNameCamelSingle: collectionNameCamelSingle
     }
