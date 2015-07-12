@@ -46,3 +46,6 @@ yo meteor-poetic factory campaigns
   - methods: server only methods
 
 - methods: file name is the same as method name
+
+# TODO
+generate route code in client/router file automatically

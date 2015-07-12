@@ -1,3 +1,7 @@
+var UserProfile = new SimpleSchema({
+
+})
+
 var UserSchema = new SimpleSchema({
   username: {
     type: String,
