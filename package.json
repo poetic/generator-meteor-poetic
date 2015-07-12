@@ -1,6 +1,6 @@
 {
   "name": "generator-meteor-poetic",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "an opinionaed yo man generator for meteor",
   "main": "index.js",
   "dependencies": {
