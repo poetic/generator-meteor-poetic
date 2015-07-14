@@ -14,6 +14,10 @@ module.exports = generators.Base.extend({
       desc: 'Generate files in the server folder',
       type: Boolean
     })
+    this.option('everywhere', {
+      desc: 'Generate files in the root folder',
+      type: Boolean
+    })
   },
 
   prompting: {
@@ -113,6 +117,14 @@ module.exports = generators.Base.extend({
       }
 
       generateCollectionFileForType(type, name, 'client', this)
+    },
+    method: function (type, name) {
+      if(!(type === 'method')) {
+        return
+      }
+
+      var prefix = this.options.everywhere ? 'everywhere' : 'server'
+      generateCollectionFileForType(type, name, prefix, this)
     },
   }
 
