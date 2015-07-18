@@ -1,6 +1,7 @@
 var generators = require('yeoman-generator')
 var _          = require('lodash')
 var inflection = require('inflection')
+var sides      = ['before', 'everywhere', 'client', 'server']
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -87,7 +88,7 @@ module.exports = generators.Base.extend({
         return
       }
 
-      generateJsFile(type, name, 'everywhere', this)
+      generateJsFile(type, name, 'before', this)
     },
     factory: function (type, name) {
       if(!(type === 'factory')) {
@@ -136,7 +137,6 @@ module.exports = generators.Base.extend({
   // Helpers
   _getSide: function (defalutSide) {
     var generator = this
-    var sides     = ['everywhere', 'client', 'server']
 
     sides.forEach(function (side) {
       if(generator.options[side]) {
@@ -217,7 +217,14 @@ function parseRouteName (name, generator) {
  */
 function generateJsFile (type, name, defaultSide, generator) {
   var side   = generator._getSide(defaultSide)
-  var prefix = side === 'everywhere' ? '' : side
+  var prefix
+  if(side === 'before') {
+    prefix = 'before/lib'
+  } else if (side === 'everywhere') {
+    prefix = ''
+  } else {
+    prefix = side
+  }
 
   var collectionName            = capitalize(name)
   var collectionNameSingle      = inflection.singularize(collectionName)

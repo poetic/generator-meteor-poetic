@@ -30,6 +30,12 @@ yo meteor-poetic publication campaigns
 
 yo meteor-poetic factory campaigns
 # ./server/factorys/campaigns.js
+
+yo meteor-poetic collection-helpers campaigns
+# ./collection-helpers/campaigns.js
+
+yo meteor-poetic collection-helpers campaigns --server
+# ./server/collection-helpers/campaigns.js
 ```
 
 # File Structure:
@@ -46,6 +52,3 @@ yo meteor-poetic factory campaigns
   - methods: server only methods
 
 - methods: file name is the same as method name
-
-# TODO
-generate route code in client/router file automatically
