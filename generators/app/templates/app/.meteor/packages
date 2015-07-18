@@ -9,3 +9,4 @@ digilord:faker
 useraccounts:semantic-ui
 accounts-password
 dburles:factory
+dburles:collection-helpers

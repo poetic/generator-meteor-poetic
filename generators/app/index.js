@@ -80,54 +80,72 @@ module.exports = generators.Base.extend({
         return
       }
 
-      generateCollectionFileForType(type, name, 'client', this)
+      generateJsFile(type, name, 'client', this)
     },
     schema: function (type, name) {
       if(!(type === 'schema')) {
         return
       }
 
-      generateCollectionFileForType(type, name, 'everywhere', this)
+      generateJsFile(type, name, 'everywhere', this)
     },
-    // TODO: create a meteor lib for this, instead of creating the same template
     factory: function (type, name) {
       if(!(type === 'factory')) {
         return
       }
 
-      generateCollectionFileForType(type, name, 'server', this)
+      generateJsFile(type, name, 'server', this)
     },
     publication: function (type, name) {
       if(!(type === 'publication')) {
         return
       }
 
-      generateCollectionFileForType(type, name, 'server', this)
+      generateJsFile(type, name, 'server', this)
     },
     authorization: function (type, name) {
       if(!(type === 'authorization')) {
         return
       }
 
-      generateCollectionFileForType(type, name, 'server', this)
+      generateJsFile(type, name, 'server', this)
     },
     autorun: function (type, name) {
       if(!(type === 'autorun')) {
         return
       }
 
-      generateCollectionFileForType(type, name, 'client', this)
+      generateJsFile(type, name, 'client', this)
     },
     method: function (type, name) {
       if(!(type === 'method')) {
         return
       }
 
-      var prefix = this.options.everywhere ? 'everywhere' : 'server'
-      generateCollectionFileForType(type, name, prefix, this)
+      generateJsFile(type, name, 'everywhere', this)
     },
-  }
+    collectionHelper: function (type, name) {
+      if(!(type === 'collection-helper')) {
+        return
+      }
 
+      generateJsFile(type, name, 'everywhere', this)
+    },
+  },
+
+  // Helpers
+  _getSide: function (defalutSide) {
+    var generator = this
+    var sides     = ['everywhere', 'client', 'server']
+
+    sides.forEach(function (side) {
+      if(generator.options[side]) {
+        return side
+      }
+    })
+
+    return defalutSide
+  },
 });
 
 /*
@@ -195,9 +213,10 @@ function parseRouteName (name, generator) {
 }
 
 /*
- * @param side {'client'|'server'|'everywhere'}
+ * @param defaultSide {'client'|'server'|'everywhere'}
  */
-function generateCollectionFileForType (type, name, side, generator) {
+function generateJsFile (type, name, defaultSide, generator) {
+  var side   = generator._getSide(defaultSide)
   var prefix = side === 'everywhere' ? '' : side
 
   var collectionName            = capitalize(name)

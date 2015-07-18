@@ -1,9 +1,3 @@
-Factories.<%= collectionName %> = {}
-Factories.<%= collectionName %>.create = function(override) {
-  var <%= collectionNameCamelSingle %> = {
-  }
+Factory.define('<%= collectionNameCamelSingle %>', <%= collectionName %>, {
 
-  <%= collectionNameCamelSingle %> = _.merge(<%= collectionNameCamelSingle %>, override)
-  var <%= collectionNameCamelSingle %>Id = <%= collectionName %>.insert(<%= collectionNameCamelSingle %>)
-  return <%= collectionNameCamelSingle %>Id
-}
+})
