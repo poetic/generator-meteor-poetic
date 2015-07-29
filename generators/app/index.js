@@ -138,13 +138,11 @@ module.exports = generators.Base.extend({
   _getSide: function (defalutSide) {
     var generator = this
 
-    sides.forEach(function (side) {
-      if(generator.options[side]) {
-        return side
-      }
+    var selectedSide = _.find(sides, function (side) {
+      return generator.options[side]
     })
 
-    return defalutSide
+    return selectedSide || defalutSide
   },
 });
 

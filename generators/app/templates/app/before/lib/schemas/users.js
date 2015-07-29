@@ -55,6 +55,6 @@ var UserSchema = new SimpleSchema({
   //   type: [String],
   //   optional: true
   // }
-});
+})
 
-Meteor.users.attachSchema(UserSchema);
+Meteor.users.attachSchema(UserSchema)
