@@ -132,6 +132,13 @@ module.exports = generators.Base.extend({
 
       generateJsFile(type, name, 'everywhere', this)
     },
+    collectionHook: function (type, name) {
+      if(!(type === 'collection-hook')) {
+        return
+      }
+
+      generateJsFile(type, name, 'everywhere', this)
+    },
   },
 
   // Helpers
