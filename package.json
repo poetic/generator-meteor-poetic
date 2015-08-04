@@ -1,6 +1,6 @@
 {
   "name": "generator-meteor-poetic",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An opinionaed Yeoman generator for meteor",
   "main": "index.js",
   "dependencies": {
