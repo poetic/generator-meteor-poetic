@@ -3,7 +3,7 @@
 npm install generator-meteor-poetic
 ```
 
-# [File structure and the reason behind it][http://chun-yang.github.io/meteor/2015/08/08/how-to-structure-meteor-app.html]
+# [File structure and the reason behind it](http://chun-yang.github.io/meteor/2015/08/08/how-to-structure-meteor-app.html)
 
 # Usage
 Read generators/index.js to have a full list of generators.
