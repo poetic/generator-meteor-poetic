@@ -2,7 +2,7 @@
   "name": "generator-meteor-poetic",
   "version": "1.0.4",
   "description": "An opinionaed Yeoman generator for meteor",
-  "main": "index.js",
+  "main": "generators/index.js",
   "dependencies": {
     "inflection": "^1.7.1",
     "lodash": "^3.8.0",
